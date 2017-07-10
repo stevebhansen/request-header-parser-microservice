@@ -15,7 +15,8 @@ useragent(true);
 
 app.all("/*", function (request, response) {
   var agent = useragent.parse(request.headers['user-agent']);
-  response.send(agent.toAgent());
+  var ip = request.headers['x-forwarded-for'];
+  response.send({ipaddress: ip, browser:agent.toAgent(), os: agent.os.toString()});
 });
 
 // listen for requests :)
