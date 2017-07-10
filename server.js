@@ -17,8 +17,8 @@ useragent(true);
 app.all("/*", function (request, response) {
   var agent = useragent.parse(request.headers['user-agent']);
   var ip = getIP(request);
-  var lang = request.headers['accept-language'].split[','];
-  response.send({ipaddress: ip['clientIp'],language: lang[0], browser:agent.toAgent(), os: agent.os.toString()});
+  var lang = request.headers['accept-language'].split(',');
+  response.send({ipaddress: ip['clientIp'],language: lang[0], software:agent.toAgent(), os: agent.os.toString()});
 });
 
 // listen for requests :)
