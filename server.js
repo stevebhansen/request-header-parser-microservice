@@ -5,6 +5,7 @@
 var express = require('express');
 var app = express();
 var useragent = require('useragent');
+var getIP = require('ipware')().get_ip;
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -15,8 +16,9 @@ useragent(true);
 
 app.all("/*", function (request, response) {
   var agent = useragent.parse(request.headers['user-agent']);
-  var ip = request.headers['x-forwarded-for'];
-  response.send({ipaddress: ip, browser:agent.toAgent(), os: agent.os.toString()});
+  var ip = getIP(request);
+  var lang = request.headers['accept-language'].split[','];
+  response.send({ipaddress: ip['clientIp'],language: lang[0], browser:agent.toAgent(), os: agent.os.toString()});
 });
 
 // listen for requests :)
