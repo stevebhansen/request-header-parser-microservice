@@ -16,11 +16,10 @@ useragent(true);
 
 app.all("/*", function (request, response) {
   //var agent = useragent.parse(request.headers['user-agent']);
-  var agent = request.headers['user-agent'];
+  var agent = request.headers['user-agent'].split(/[()]+/).filter(function(e) { return e; });
   var ip = getIP(request);
   var lang = request.headers['accept-language'].split(',');
-  response.send(agent);
-  response.send({ipaddress: ip['clientIp'],language: lang[0], software:agent.toAgent(), os: agent.os.toString()});
+  response.send({ipaddress: ip['clientIp'],language: lang[0], software:agent[1]});
 });
 
 // listen for requests :)
